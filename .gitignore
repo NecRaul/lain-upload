@@ -12,3 +12,7 @@ wheels/
 .env
 .venv/
 venv/
+
+# Cache
+.pytest_cache/
+.ruff_cache/
