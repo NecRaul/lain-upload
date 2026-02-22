@@ -8,6 +8,7 @@ from string import ascii_letters
 from urllib.parse import urlparse
 
 import requests
+from requests.exceptions import ConnectTimeout
 
 from lain_upload.uploader import (
     CatboxUploader,
@@ -91,13 +92,19 @@ class UploadIntegrationTests(unittest.TestCase):
         self.fail(f"Could not fetch uploaded file from {url}: {last_error}")
 
     def test_catbox_upload(self):
-        url = CatboxUploader(self.file_path).upload().strip()
+        try:
+            url = CatboxUploader(self.file_path).upload().strip()
+        except ConnectTimeout as e:
+            self.skipTest(f"Catbox connect timeout: {e}")
         self._assert_uploaded_url(
             url, ("https://files.catbox.moe/", "https://catbox.moe/")
         )
 
     def test_litterbox_upload(self):
-        url = LitterboxUploader(self.file_path, expire_after="24h").upload().strip()
+        try:
+            url = LitterboxUploader(self.file_path, expire_after="24h").upload().strip()
+        except ConnectTimeout as e:
+            self.skipTest(f"Litterbox connect timeout: {e}")
         self._assert_uploaded_url(url, ("https://litter.catbox.moe/",))
 
     def test_pomf_response_parsing_only(self):
@@ -132,7 +139,10 @@ class UploadIntegrationTests(unittest.TestCase):
         self._assert_uploaded_url(url, ("https://0x0.st/",))
 
     def test_gofile_upload(self):
-        url = GofileUploader(self.file_path).upload().strip()
+        try:
+            url = GofileUploader(self.file_path).upload().strip()
+        except ConnectTimeout as e:
+            self.skipTest(f"Gofile connect timeout: {e}")
         self._assert_uploaded_url(
             url, ("https://gofile.io/d/", "https://gofile.io/download/")
         )
