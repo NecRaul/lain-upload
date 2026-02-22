@@ -21,7 +21,7 @@ class BaseUploader:
             data = self._build_monitor(fields)
             headers = {
                 "Content-Type": data.content_type,
-                "User-Agent": "lain-upload/1.16 (https://github.com/NecRaul/lain-upload)",
+                "User-Agent": "lain-upload/1.17 (https://github.com/NecRaul/lain-upload)",
             }
             headers.update(self._build_headers())
             response = self._upload_impl(data, headers)
