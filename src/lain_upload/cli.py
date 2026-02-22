@@ -89,7 +89,13 @@ def main():
             )
 
     if "auth" in host_options and "auth" not in kwargs:
-        auth_env_var = f"{host_info['class'].upper()}_API_KEY"
+        cls = host_info.get("class")
+        if isinstance(cls, str):
+            auth_env_var = f"{cls.upper()}_API_KEY"
+        else:
+            parser.error(
+                f"Uploader class for host {args.host} is not an instance of str."
+            )
         auth_from_env = os.getenv(auth_env_var)
         print(auth_env_var)
         print(auth_from_env)
