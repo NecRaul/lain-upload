@@ -11,6 +11,7 @@ import requests
 from requests.exceptions import ConnectTimeout
 
 from lain_upload.uploader import (
+    BuzzheavierUploader,
     CatboxUploader,
     FileDitchUploader,
     GofileUploader,
@@ -155,6 +156,13 @@ class UploadIntegrationTests(unittest.TestCase):
         )
         url = PixeldrainUploader(self.file_path, auth=pixeldrain_auth).upload().strip()
         self._assert_uploaded_url(url, ("https://pixeldrain.com/u/",))
+
+    def test_buzzheavier_upload(self):
+        url = BuzzheavierUploader(self.file_path).upload().strip()
+        self._assert_uploaded_url(
+            url,
+            ("https://buzzheavier.com/",),
+        )
 
 
 if __name__ == "__main__":
