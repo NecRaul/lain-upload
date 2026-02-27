@@ -76,7 +76,7 @@ lain-upload /path/to/kuroneko.png /path/to/another/directory/shironeko.png yamin
 lain-upload --host uguu kuroneko.png
 
 # Use host authentication when supported
-lain-upload --host pixeldrain --auth "$PIXELDRAIN_API_KEY" kuroneko.png
+lain-upload --host mixdrop --auth necraul@kuroneko.dev:generated_api_key kuroneko.png
 
 # Set temporary file expiration when supported (e.g. 1h, 12h, 24h, 72h, etc.)
 lain-upload --host litterbox --expire-after 24h kuroneko.png
@@ -99,6 +99,8 @@ lain-upload -v
 - [0x0](https://0x0.st/) - Support for custom expiration time and longer upload filenames.
 - [gofile](https://gofile.io/) - Support for user authentication with bearer API tokens.
 - [pixeldrain](https://pixeldrain.com/) - Support for user authentication with API keys (**Required**).
+- [buzzheavier](https://buzzheavier.com/) - No extra options.
+- [mixdrop](https://mixdrop.ag/) - Support for user authentication with mail and API keys (**Required**).
 
 ## Dependencies
 
