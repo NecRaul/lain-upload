@@ -113,19 +113,19 @@ def main():
             print(f"{file_path.name}: {url}")
             uploaded_urls.append(url)
         except FileNotFoundError as e:
-            print(f"File not found: {e}", file=sys.stderr)
+            print(f"\nFile not found: {e}", file=sys.stderr)
             has_error = True
             continue
         except ValueError as e:
-            print(f"Value Error: {e}", file=sys.stderr)
+            print(f"\nValue Error: {e}", file=sys.stderr)
             has_error = True
             continue
         except requests.RequestException as e:
-            print(f"Network error: {e}", file=sys.stderr)
+            print(f"\nNetwork error: {e}", file=sys.stderr)
             has_error = True
             continue
         except (KeyError, IndexError, TypeError) as e:
-            print(f"Unexpected server response: {e}", file=sys.stderr)
+            print(f"\nUnexpected server response: {e}", file=sys.stderr)
             has_error = True
             continue
 
