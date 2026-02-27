@@ -22,6 +22,7 @@ def main():
         "0x0": {"class": "Null", "options": {"expire_after", "long_filenames"}},
         "gofile": {"class": "Gofile", "options": {"auth"}},
         "pixeldrain": {"class": "Pixeldrain", "options": {"auth"}},
+        "buzzheavier": {"class": "Buzzheavier", "options": {}},
     }
     deprecated_hosts = {
         "pomf": "pomf is no longer supported.\nSee: https://infrablog.lain.la/pomf-announcement",
