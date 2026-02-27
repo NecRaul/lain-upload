@@ -4,7 +4,7 @@ build-backend = "uv_build"
 
 [project]
 name = "lain-upload"
-version = "1.19"
+version = "1.20"
 description = "A simple CLI file uploader for multiple file-hosting services, with optional clipboard copy."
 readme = "README.md"
 authors = [{ name = "NecRaul", email = "necraul@kuroneko.dev" }]
