@@ -16,6 +16,7 @@ from lain_upload.uploader import (
     FileDitchUploader,
     GofileUploader,
     LitterboxUploader,
+    MixdropUploader,
     NullUploader,
     PixeldrainUploader,
     PomfUploader,
@@ -163,6 +164,15 @@ class UploadIntegrationTests(unittest.TestCase):
             url,
             ("https://buzzheavier.com/",),
         )
+
+    def test_mixdrop_upload(self):
+        mixdrop_auth = os.getenv("MIXDROP_API_KEY")
+        self.assertTrue(
+            mixdrop_auth,
+            "Set MIXDROP_API_KEY for Mixdrop integration test",
+        )
+        url = MixdropUploader(self.file_path, auth=mixdrop_auth).upload().strip()
+        self._assert_uploaded_url(url, ("https://mixdrop.top/f/",))
 
 
 if __name__ == "__main__":
