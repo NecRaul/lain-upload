@@ -7,6 +7,7 @@ class GofileUploader(BaseUploader):
         self.auth = auth
         self.file_max_size = 100 * 1000 * 1000 * 1000
         self.file_max_size_str = "100GB"
+        self.http_method = "POST"
         self.api_endpoint = "https://upload.gofile.io/uploadfile"
 
     def _build_fields(self, file_name, file):

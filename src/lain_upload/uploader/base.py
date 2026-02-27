@@ -6,10 +6,13 @@ from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 
 class BaseUploader:
-    def __init__(self, file_path, file_max_size, file_max_size_str, api_endpoint):
+    def __init__(
+        self, file_path, file_max_size, file_max_size_str, http_method, api_endpoint
+    ):
         self.file_path = file_path
         self.file_max_size = file_max_size
         self.file_max_size_str = file_max_size_str
+        self.http_method = http_method
         self.api_endpoint = api_endpoint
         self._done_printed = False
 
@@ -54,7 +57,8 @@ class BaseUploader:
         return {}
 
     def _upload_impl(self, data, headers):
-        response = requests.post(
+        response = requests.request(
+            method=self.http_method,
             url=self.api_endpoint,
             data=data,
             headers=headers,

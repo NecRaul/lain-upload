@@ -6,6 +6,7 @@ class FileDitchUploader(BaseUploader):
         self.file_path = file_path
         self.file_max_size = 15 * 1000 * 1000 * 1000
         self.file_max_size_str = "15GB"
+        self.http_method = "POST"
         self.api_endpoint = "https://up1.fileditch.com/upload.php"
 
     def _build_fields(self, file_name, file):

@@ -90,7 +90,7 @@ class CliTests(unittest.TestCase):
             uploader_instance = MagicMock()
             uploader_instance.upload.return_value = "https://example.test/file"
 
-            stdout = io.StringIO()
+            stderr = io.StringIO()
 
             with (
                 patch(
@@ -109,13 +109,13 @@ class CliTests(unittest.TestCase):
                     ],
                 ),
                 patch.dict("os.environ", {"GOFILE_API_KEY": "env-secret"}, clear=True),
-                patch("sys.stdout", stdout),
+                patch("sys.stderr", stderr),
             ):
                 cli.main()
 
             uploader_cls.assert_called_once_with(file_path, auth="flag-secret")
-            self.assertNotIn("GOFILE_API_KEY", stdout.getvalue())
-            self.assertNotIn("env-secret", stdout.getvalue())
+            self.assertNotIn("GOFILE_API_KEY", stderr.getvalue())
+            self.assertNotIn("env-secret", stderr.getvalue())
 
     def test_reads_auth_from_environment_when_not_provided(self):
         with tempfile.NamedTemporaryFile(suffix=".txt") as tmp:
@@ -124,7 +124,7 @@ class CliTests(unittest.TestCase):
             uploader_instance = MagicMock()
             uploader_instance.upload.return_value = "https://example.test/file"
 
-            stdout = io.StringIO()
+            stderr = io.StringIO()
 
             with (
                 patch(
@@ -133,13 +133,13 @@ class CliTests(unittest.TestCase):
                 ) as uploader_cls,
                 patch("sys.argv", ["lain-upload", "--host", "gofile", str(file_path)]),
                 patch.dict("os.environ", {"GOFILE_API_KEY": "env-secret"}, clear=True),
-                patch("sys.stdout", stdout),
+                patch("sys.stderr", stderr),
             ):
                 cli.main()
 
             uploader_cls.assert_called_once_with(file_path, auth="env-secret")
-            self.assertIn("GOFILE_API_KEY", stdout.getvalue())
-            self.assertIn("env-secret", stdout.getvalue())
+            self.assertIn("GOFILE_API_KEY", stderr.getvalue())
+            self.assertIn("env-secret", stderr.getvalue())
 
     def test_skips_auth_when_environment_variable_missing(self):
         with tempfile.NamedTemporaryFile(suffix=".txt") as tmp:
@@ -148,7 +148,7 @@ class CliTests(unittest.TestCase):
             uploader_instance = MagicMock()
             uploader_instance.upload.return_value = "https://example.test/file"
 
-            stdout = io.StringIO()
+            stderr = io.StringIO()
 
             with (
                 patch(
@@ -157,12 +157,12 @@ class CliTests(unittest.TestCase):
                 ) as uploader_cls,
                 patch("sys.argv", ["lain-upload", "--host", "gofile", str(file_path)]),
                 patch.dict("os.environ", {}, clear=True),
-                patch("sys.stdout", stdout),
+                patch("sys.stderr", stderr),
             ):
                 cli.main()
 
             uploader_cls.assert_called_once_with(file_path)
-            self.assertIn("GOFILE_API_KEY", stdout.getvalue())
+            self.assertNotIn("GOFILE_API_KEY", stderr.getvalue())
 
     def test_warns_for_unsupported_option(self):
         with tempfile.NamedTemporaryFile(suffix=".txt") as tmp:

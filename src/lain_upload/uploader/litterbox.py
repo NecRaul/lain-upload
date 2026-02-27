@@ -10,6 +10,7 @@ class LitterboxUploader(BaseUploader):
         self.long_filenames = long_filenames
         self.file_max_size = 1000 * 1000 * 1000
         self.file_max_size_str = "1GB"
+        self.http_method = "POST"
         self.api_endpoint = "https://litterbox.catbox.moe/resources/internals/api.php"
 
     def _build_fields(self, file_name, file):

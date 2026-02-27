@@ -97,9 +97,8 @@ def main():
                 f"Uploader class for host {args.host} is not an instance of str."
             )
         auth_from_env = os.getenv(auth_env_var)
-        print(auth_env_var)
-        print(auth_from_env)
         if auth_from_env:
+            print(f"Using {auth_env_var}: {auth_from_env}", file=sys.stderr)
             kwargs["auth"] = auth_from_env
 
     uploaded_urls = []

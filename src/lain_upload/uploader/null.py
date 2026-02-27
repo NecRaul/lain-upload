@@ -8,6 +8,7 @@ class NullUploader(BaseUploader):
         self.long_filenames = long_filenames
         self.file_max_size = 512 * 1024 * 1024
         self.file_max_size_str = "512MiB"
+        self.http_method = "POST"
         self.api_endpoint = "https://0x0.st"
 
     def _build_fields(self, file_name, file):

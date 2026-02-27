@@ -6,6 +6,7 @@ class PomfUploader(BaseUploader):
         self.file_path = file_path
         self.file_max_size = 1024 * 1024 * 1024
         self.file_max_size_str = "1GiB"
+        self.http_method = "POST"
         self.api_endpoint = "https://pomf.lain.la/upload.php"
 
     def _build_fields(self, file_name, file):
