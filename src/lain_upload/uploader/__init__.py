@@ -3,6 +3,7 @@ from .catbox import CatboxUploader
 from .fileditch import FileDitchUploader
 from .gofile import GofileUploader
 from .litterbox import LitterboxUploader
+from .mixdrop import MixdropUploader
 from .null import NullUploader
 from .pixeldrain import PixeldrainUploader
 from .pomf import PomfUploader
@@ -13,6 +14,7 @@ __all__ = [
     "CatboxUploader",
     "FileDitchUploader",
     "GofileUploader",
+    "MixdropUploader",
     "LitterboxUploader",
     "NullUploader",
     "PixeldrainUploader",
