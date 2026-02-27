@@ -47,6 +47,7 @@ jobs:
         run: uv run pytest tests
         env:
           PIXELDRAIN_API_KEY: ${{ secrets.PIXELDRAIN_API_KEY }}
+          MIXDROP_API_KEY: ${{ secrets.MIXDROP_API_KEY }}
 
   lint-format:
     needs: tests
