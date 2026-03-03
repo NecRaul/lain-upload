@@ -24,7 +24,7 @@ def main():
         "pixeldrain": {"class": "Pixeldrain", "options": {"auth"}},
         "buzzheavier": {"class": "Buzzheavier", "options": {}},
         "mixdrop": {"class": "Mixdrop", "options": {"auth"}},
-        "sharey": {"class": "Sharey", "options": {}},
+        "sharey": {"class": "Sharey", "options": {"expire_after"}},
     }
     deprecated_hosts = {
         "pomf": "pomf is no longer supported.\nSee: https://infrablog.lain.la/pomf-announcement",
