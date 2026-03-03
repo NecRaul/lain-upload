@@ -20,6 +20,7 @@ from lain_upload.uploader import (
     NullUploader,
     PixeldrainUploader,
     PomfUploader,
+    ShareyUploader,
     UguuUploader,
 )
 
@@ -173,6 +174,13 @@ class UploadIntegrationTests(unittest.TestCase):
         )
         url = MixdropUploader(self.file_path, auth=mixdrop_auth).upload().strip()
         self._assert_uploaded_url(url, ("https://mixdrop.top/f/",))
+
+    def test_sharey_upload(self):
+        url = ShareyUploader(self.file_path).upload().strip()
+        self._assert_uploaded_url(
+            url,
+            ("https://sharey.org/",),
+        )
 
 
 if __name__ == "__main__":
