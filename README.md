@@ -101,6 +101,7 @@ lain-upload -v
 - [pixeldrain](https://pixeldrain.com/) - Support for user authentication with API keys (**Required**).
 - [buzzheavier](https://buzzheavier.com/) - No extra options.
 - [mixdrop](https://mixdrop.ag/) - Support for user authentication with mail and API keys (**Required**).
+- [sharey](https://sharey.org/) - Support for custom expiration time.
 
 ## Dependencies
 
