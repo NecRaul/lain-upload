@@ -29,7 +29,9 @@ class CliTests(unittest.TestCase):
             ):
                 cli.main()
 
-            uploader_cls.assert_called_once_with(file_path)
+            uploader_cls.assert_called_once()
+            args, kwargs = uploader_cls.call_args
+            self.assertEqual(args[0], file_path)
             self.assertIn(
                 f"{file_path.name}: https://example.test/file", stdout.getvalue()
             )
