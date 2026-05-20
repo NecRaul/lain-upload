@@ -39,7 +39,7 @@ def main():
         "--host",
         nargs="?",
         default="catbox",
-        choices=allowed_hosts.keys(),
+        choices=[*allowed_hosts.keys(), "all"],
         help="host to use for uploading",
     )
     parser.add_argument("--auth", nargs="?", help="authentication information")
@@ -64,72 +64,83 @@ def main():
     if args.host in deprecated_hosts:
         parser.error(deprecated_hosts[args.host])
 
-    host_info = allowed_hosts[args.host]
+    selected_hosts = [args.host]
+    if args.host == "all":
+        selected_hosts = [
+            host_name
+            for host_name in allowed_hosts
+            if host_name not in deprecated_hosts
+        ]
 
-    if not host_info or host_info["class"] is None:
-        parser.error(f"Host {args.host} is not supported.")
-
-    host_class_name = f"{host_info['class']}Uploader"
-    if isinstance(host_class_name, str):
-        host_class = getattr(uploader, host_class_name)
-    else:
-        parser.error(f"Uploader class for host {args.host} is invalid.")
-
-    host_options = host_info["options"]
     all_options = {opt for host in allowed_hosts.values() for opt in host["options"]}
-    kwargs = {}
-
-    for option in all_options:
-        value = getattr(args, option, None)
-        if value is None:
-            continue
-        if option in host_options:
-            kwargs[option] = value
-        else:
-            print(
-                f"Warning: {args.host} does not support {option} option, ignoring it",
-                file=sys.stderr,
-            )
-
-    if "auth" in host_options and "auth" not in kwargs:
-        cls = host_info.get("class")
-        if isinstance(cls, str):
-            auth_env_var = f"{cls.upper()}_API_KEY"
-        else:
-            parser.error(
-                f"Uploader class for host {args.host} is not an instance of str."
-            )
-        auth_from_env = os.getenv(auth_env_var)
-        if auth_from_env:
-            print(f"Using {auth_env_var}: {auth_from_env}", file=sys.stderr)
-            kwargs["auth"] = auth_from_env
 
     uploaded_urls = []
     has_error = False
 
-    for file_path_str in args.file_paths:
-        try:
-            file_path = Path(file_path_str)
-            uploader_instance = host_class(file_path, **kwargs)
-            url = uploader_instance.upload().strip()
-            print(f"{file_path.name}: {url}")
-            uploaded_urls.append(url)
-        except FileNotFoundError as e:
-            print(f"\nFile not found: {e}", file=sys.stderr)
-            has_error = True
-            continue
-        except ValueError as e:
-            print(f"\nValue Error: {e}", file=sys.stderr)
-            has_error = True
-            continue
-        except requests.RequestException as e:
-            print(f"\nNetwork error: {e}", file=sys.stderr)
-            has_error = True
-            continue
-        except (KeyError, IndexError, TypeError) as e:
-            print(f"\nUnexpected server response: {e}", file=sys.stderr)
-            has_error = True
-            continue
+    for host_name in selected_hosts:
+        host_info = allowed_hosts[host_name]
+
+        if not host_info or host_info["class"] is None:
+            parser.error(f"Host {host_name} is not supported.")
+
+        host_class_name = f"{host_info['class']}Uploader"
+        if isinstance(host_class_name, str):
+            host_class = getattr(uploader, host_class_name)
+        else:
+            parser.error(f"Uploader class for host {host_name} is invalid.")
+
+        host_options = host_info["options"]
+        kwargs = {}
+
+        for option in all_options:
+            value = getattr(args, option, None)
+            if value is None:
+                continue
+            if option in host_options:
+                kwargs[option] = value
+            else:
+                print(
+                    f"Warning: {host_name} does not support {option} option, "
+                    f"ignoring it",
+                    file=sys.stderr,
+                )
+
+        if "auth" in host_options and "auth" not in kwargs:
+            cls = host_info.get("class")
+            if isinstance(cls, str):
+                auth_env_var = f"{cls.upper()}_API_KEY"
+            else:
+                parser.error(
+                    f"Uploader class for host {host_name} is not an instance of str."
+                )
+            auth_from_env = os.getenv(auth_env_var)
+            if auth_from_env:
+                print(f"Using {auth_env_var}: {auth_from_env}", file=sys.stderr)
+                kwargs["auth"] = auth_from_env
+
+        for file_path_str in args.file_paths:
+            try:
+                file_path = Path(file_path_str)
+                uploader_instance = host_class(file_path, **kwargs)
+                url = uploader_instance.upload().strip()
+                print(f"{file_path.name}: {url}")
+                uploaded_urls.append(url)
+            except FileNotFoundError as e:
+                print(f"File not found: {e}", file=sys.stderr)
+                has_error = True
+                continue
+            except ValueError as e:
+                print(f"Value Error: {e}", file=sys.stderr)
+                has_error = True
+                continue
+            except requests.RequestException as e:
+                print(f"Network error: {e}", file=sys.stderr)
+                has_error = True
+                continue
+            except (KeyError, IndexError, TypeError) as e:
+                print(f"Unexpected server response: {e}", file=sys.stderr)
+                has_error = True
+                continue
 
     if uploaded_urls:
         all_urls = "\n".join(uploaded_urls)
