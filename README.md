@@ -84,6 +84,9 @@ lain-upload --host litterbox --expire-after 24h kuroneko.png
 # Enable longer generated filenames when supported
 lain-upload --host 0x0 --long-filenames -- kuroneko.png shironeko.png
 
+# Upload to every available non-deprecated host
+lain-upload --host all kamineko.png
+
 # Display help and version
 lain-upload -h
 lain-upload -v
