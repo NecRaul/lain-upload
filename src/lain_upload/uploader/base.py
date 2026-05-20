@@ -20,7 +20,7 @@ class BaseUploader:
         self._done_printed = False
         file_path = self._get_file_path()
         headers = {
-            "User-Agent": "lain-upload/1.21 (https://github.com/NecRaul/lain-upload)",
+            "User-Agent": "lain-upload/1.22 (https://github.com/NecRaul/lain-upload)",
         }
         headers.update(self._build_headers())
         with file_path.open("rb") as file:
