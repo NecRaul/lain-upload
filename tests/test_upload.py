@@ -94,6 +94,10 @@ class UploadIntegrationTests(unittest.TestCase):
 
         self.fail(f"Could not fetch uploaded file from {url}: {last_error}")
 
+    @unittest.skipIf(
+        os.getenv("GITHUB_ACTIONS") == "true",
+        "Skipping CatboxUploader test on GitHub CI",
+    )
     def test_catbox_upload(self):
         try:
             url = CatboxUploader(self.file_path).upload().strip()
@@ -103,6 +107,10 @@ class UploadIntegrationTests(unittest.TestCase):
             url, ("https://files.catbox.moe/", "https://catbox.moe/")
         )
 
+    @unittest.skipIf(
+        os.getenv("GITHUB_ACTIONS") == "true",
+        "Skipping LitterboxUploader test on GitHub CI",
+    )
     def test_litterbox_upload(self):
         try:
             url = LitterboxUploader(self.file_path, expire_after="24h").upload().strip()
@@ -159,6 +167,10 @@ class UploadIntegrationTests(unittest.TestCase):
         url = PixeldrainUploader(self.file_path, auth=pixeldrain_auth).upload().strip()
         self._assert_uploaded_url(url, ("https://pixeldrain.com/u/",))
 
+    @unittest.skipIf(
+        os.getenv("GITHUB_ACTIONS") == "true",
+        "Skipping BuzzheavierUploader test on GitHub CI",
+    )
     def test_buzzheavier_upload(self):
         url = BuzzheavierUploader(self.file_path).upload().strip()
         self._assert_uploaded_url(
