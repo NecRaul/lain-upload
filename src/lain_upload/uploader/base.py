@@ -19,14 +19,18 @@ class BaseUploader:
     def upload(self):
         self._done_printed = False
         file_path = self._get_file_path()
+        headers = {
+            "User-Agent": "lain-upload/1.21 (https://github.com/NecRaul/lain-upload)",
+        }
+        headers.update(self._build_headers())
         with file_path.open("rb") as file:
-            fields = self._build_fields(file_path.name, file)
-            data = self._build_monitor(fields)
-            headers = {
-                "Content-Type": data.content_type,
-                "User-Agent": "lain-upload/1.21 (https://github.com/NecRaul/lain-upload)",
-            }
-            headers.update(self._build_headers())
+            if self.http_method == "PUT":
+                data = file
+                headers["Content-Type"] = "application/octet-stream"
+            else:
+                fields = self._build_fields(file_path.name, file)
+                data = self._build_monitor(fields)
+                headers["Content-Type"] = data.content_type
             response = self._upload_impl(data, headers)
         return self._extract_url(response)
 
