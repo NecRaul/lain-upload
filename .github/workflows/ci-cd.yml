@@ -4,17 +4,17 @@ on:
   push:
     branches:
       - main
-      - release
+    tags:
+      - "v*.*"
   pull_request:
     branches:
       - main
-  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  tests:
+  unit-tests:
     name: Unit tests
     runs-on: ubuntu-24.04
     strategy:
@@ -32,16 +32,15 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7.0.0
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v8.2.0
         with:
           python-version: ${{ matrix.python-version }}
-          enable-cache: true
 
       - name: Install dependencies
-        run: uv sync --dev
+        run: uv sync --dev --frozen
 
       - name: Run tests
         run: uv run pytest tests
@@ -50,25 +49,23 @@ jobs:
           MIXDROP_API_KEY: ${{ secrets.MIXDROP_API_KEY }}
 
   lint-format:
-    needs: tests
     name: Check linting and formatting
     runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7.0.0
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v8.2.0
         with:
           python-version: "3.12"
-          enable-cache: true
+
+      - name: Uv lock check
+        run: uv lock --check
 
       - name: Install dependencies
-        run: uv sync --dev
-
-      - name: Uv sync check
-        run: uv sync --check
+        run: uv sync --dev --frozen
 
       - name: Ruff lint & import check
         run: uv run ruff check
@@ -79,10 +76,12 @@ jobs:
       - name: Ty type check
         run: uv run ty check
 
-  publish:
-    needs: lint-format
+  pypi-publish:
     name: Publish package to PyPI
-    if: github.ref == 'refs/heads/release' && github.event_name == 'push'
+    needs:
+      - unit-tests
+      - lint-format
+    if: github.ref_type == 'tag'
     runs-on: ubuntu-24.04
     environment:
       name: pypi
@@ -92,10 +91,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7.0.0
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v8.2.0
         with:
           python-version: "3.12"
           enable-cache: true
@@ -103,5 +102,35 @@ jobs:
       - name: Build package
         run: uv build
 
+      - name: Upload package
+        uses: actions/upload-artifact@v7.0.0
+        with:
+          name: lain-upload
+          path: dist/*
+
       - name: Publish package
         run: uv publish
+
+  gh-release:
+    name: Create GitHub Release
+    needs: pypi-publish
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v8.0.0
+        with:
+          path: release
+          merge-multiple: true
+
+      - name: Create release
+        uses: softprops/action-gh-release@v3.0.0
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: lain-upload ${{ github.ref_name }}
+          generate_release_notes: true
+          files: |
+            release/**
