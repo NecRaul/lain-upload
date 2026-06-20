@@ -135,10 +135,11 @@ class UploadIntegrationTests(unittest.TestCase):
         url = FileDitchUploader(self.file_path).upload().strip()
         self._assert_uploaded_url(
             url,
-            ("https://fileditchfiles.me/file.php?f=/",),
+            ("https://fileditchfiles.me/",),
             verify_access=False,
         )
 
+    @unittest.skip("0x0.st uploads are currently suspended")
     @unittest.skipIf(
         os.getenv("GITHUB_ACTIONS") == "true", "Skipping NullUploader test on GitHub CI"
     )
