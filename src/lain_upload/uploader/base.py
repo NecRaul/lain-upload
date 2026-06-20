@@ -4,6 +4,8 @@ import requests
 from requests_toolbelt import MultipartEncoderMonitor
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
+from ..version import __version__
+
 
 class BaseUploader:
     def __init__(
@@ -20,7 +22,7 @@ class BaseUploader:
         self._done_printed = False
         file_path = self._get_file_path()
         headers = {
-            "User-Agent": "lain-upload/1.22 (https://github.com/NecRaul/lain-upload)",
+            "User-Agent": f"lain-upload/{__version__} (https://github.com/NecRaul/lain-upload)",
         }
         headers.update(self._build_headers())
         with file_path.open("rb") as file:

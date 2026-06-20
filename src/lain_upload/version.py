@@ -1,7 +1,6 @@
+from importlib.metadata import PackageNotFoundError, version
+
 try:
-    import importlib.metadata
-
-    __version__ = importlib.metadata.version("lain_upload")
-
-except importlib.metadata.PackageNotFoundError:
-    __version__ = "1.22"
+    __version__ = version("lain_upload")
+except PackageNotFoundError:
+    __version__ = "dev"

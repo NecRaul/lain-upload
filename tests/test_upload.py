@@ -10,6 +10,7 @@ from urllib.parse import urlparse
 import requests
 from requests.exceptions import ConnectTimeout
 
+from lain_upload import __version__
 from lain_upload.uploader import (
     BuzzheavierUploader,
     CatboxUploader,
@@ -83,7 +84,7 @@ class UploadIntegrationTests(unittest.TestCase):
                     url,
                     timeout=30,
                     headers={
-                        "User-Agent": "lain-upload-tests/1.22 (https://github.com/NecRaul/lain-upload)"
+                        "User-Agent": f"lain-upload-tests/{__version__} (https://github.com/NecRaul/lain-upload)"
                     },
                 )
                 response.raise_for_status()
