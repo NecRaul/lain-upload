@@ -5,8 +5,7 @@ from pathlib import Path
 
 import requests
 
-from . import uploader, util
-from .version import __version__
+from . import __version__, uploader, util
 
 
 def main():
@@ -64,13 +63,14 @@ def main():
     if args.host in deprecated_hosts:
         parser.error(deprecated_hosts[args.host])
 
-    selected_hosts = [args.host]
     if args.host == "all":
         selected_hosts = [
             host_name
             for host_name in allowed_hosts
             if host_name not in deprecated_hosts
         ]
+    else:
+        selected_hosts = [args.host]
 
     all_options = {opt for host in allowed_hosts.values() for opt in host["options"]}
 
@@ -84,10 +84,7 @@ def main():
             parser.error(f"Host {host_name} is not supported.")
 
         host_class_name = f"{host_info['class']}Uploader"
-        if isinstance(host_class_name, str):
-            host_class = getattr(uploader, host_class_name)
-        else:
-            parser.error(f"Uploader class for host {host_name} is invalid.")
+        host_class = getattr(uploader, host_class_name)
 
         host_options = host_info["options"]
         kwargs = {}
