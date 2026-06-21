@@ -8,6 +8,7 @@ from .null import NullUploader
 from .pixeldrain import PixeldrainUploader
 from .pomf import PomfUploader
 from .sharey import ShareyUploader
+from .tempditch import TempDitchUploader
 from .uguu import UguuUploader
 
 __all__ = [
@@ -21,5 +22,6 @@ __all__ = [
     "PixeldrainUploader",
     "PomfUploader",
     "ShareyUploader",
+    "TempDitchUploader",
     "UguuUploader",
 ]
