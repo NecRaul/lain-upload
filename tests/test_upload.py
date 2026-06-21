@@ -22,6 +22,7 @@ from lain_upload.uploader import (
     PixeldrainUploader,
     PomfUploader,
     ShareyUploader,
+    TempDitchUploader,
     UguuUploader,
 )
 
@@ -133,6 +134,14 @@ class UploadIntegrationTests(unittest.TestCase):
 
     def test_fileditch_upload(self):
         url = FileDitchUploader(self.file_path).upload().strip()
+        self._assert_uploaded_url(
+            url,
+            ("https://fileditchfiles.me/",),
+            verify_access=False,
+        )
+
+    def test_tempditch_upload(self):
+        url = TempDitchUploader(self.file_path).upload().strip()
         self._assert_uploaded_url(
             url,
             ("https://fileditchfiles.me/",),
