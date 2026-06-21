@@ -98,7 +98,8 @@ lain-upload -v
 - [litterbox](https://litterbox.catbox.moe/) - Support for custom expiration time and longer upload filenames.
 - [pomf](https://pomf.lain.la/) - No extra options (_deprecated_).
 - [uguu](https://uguu.se/) - No extra options.
-- [fileditch](https://fileditch.com/) - No extra options.
+- [fileditch](https://new.fileditch.com/) - No extra options.
+- [tempditch](https://temp.fileditch.com/) - No extra options.
 - [0x0](https://0x0.st/) - Support for custom expiration time and longer upload filenames.
 - [gofile](https://gofile.io/) - Support for user authentication with bearer API tokens.
 - [pixeldrain](https://pixeldrain.com/) - Support for user authentication with API keys (**Required**).
@@ -117,7 +118,7 @@ lain-upload -v
 
 ## How it works
 
-Supported services expose upload endpoints via multipart `POST` requests.
+Supported services provide upload endpoints that accept multipart `HTTP` requests.
 
 This tool automates uploads and adds safety checks and quality-of-life features.
 
