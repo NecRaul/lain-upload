@@ -116,7 +116,8 @@ class CliTests(unittest.TestCase):
                 cli.main()
 
             uploader_cls.assert_called_once_with(file_path, auth="flag-secret")
-            self.assertNotIn("GOFILE_API_KEY", stderr.getvalue())
+            self.assertIn("Gofile auth", stderr.getvalue())
+            self.assertIn("flag-secret", stderr.getvalue())
             self.assertNotIn("env-secret", stderr.getvalue())
 
     def test_reads_auth_from_environment_when_not_provided(self):
@@ -140,7 +141,7 @@ class CliTests(unittest.TestCase):
                 cli.main()
 
             uploader_cls.assert_called_once_with(file_path, auth="env-secret")
-            self.assertIn("GOFILE_API_KEY", stderr.getvalue())
+            self.assertIn("Gofile auth", stderr.getvalue())
             self.assertIn("env-secret", stderr.getvalue())
 
     def test_skips_auth_when_environment_variable_missing(self):
@@ -163,8 +164,8 @@ class CliTests(unittest.TestCase):
             ):
                 cli.main()
 
-            uploader_cls.assert_called_once_with(file_path)
-            self.assertNotIn("GOFILE_API_KEY", stderr.getvalue())
+            uploader_cls.assert_called_once_with(file_path, auth=None)
+            self.assertNotIn("Gofile auth", stderr.getvalue())
 
     def test_warns_for_unsupported_option(self):
         with tempfile.NamedTemporaryFile(suffix=".txt") as tmp:
