@@ -4,7 +4,7 @@ import requests
 from requests_toolbelt import MultipartEncoderMonitor
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
-from ..version import __version__
+from lain_upload.version import __version__
 
 
 class BaseUploader:

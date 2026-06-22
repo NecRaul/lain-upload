@@ -1,4 +1,4 @@
-from .base import BaseUploader
+from lain_upload.uploader.base import BaseUploader
 
 
 class BuzzheavierUploader(BaseUploader):

@@ -1,7 +1,7 @@
 import sys
 from datetime import datetime, timedelta, timezone
 
-from .base import BaseUploader
+from lain_upload.uploader.base import BaseUploader
 
 
 class ShareyUploader(BaseUploader):

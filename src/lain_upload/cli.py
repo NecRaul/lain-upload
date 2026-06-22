@@ -6,7 +6,7 @@ from pathlib import Path
 
 import requests
 
-from . import __version__, config, uploader, util
+from lain_upload import __version__, config, uploader, util
 
 
 def main():
