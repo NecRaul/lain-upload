@@ -107,6 +107,71 @@ lain-upload -v
 - [mixdrop](https://mixdrop.ag/) - Support for user authentication with mail and API keys (**Required**).
 - [sharey](https://sharey.org/) - Support for custom expiration time.
 
+## Configuration
+
+lain-upload supports a JSON configuration file to set a default host and per-host options. You can create a default config, inspect the effective configuration, and override or ignore the config file at runtime.
+
+- Default path
+  - Linux/BSD: `$XDG_CONFIG_HOME/necraul/lain-upload.json` or `~/.config/necraul/lain-upload.json`
+  - MacOS: `~/Library/Application Support/necraul/lain-upload.json`
+  - Windows: `%APPDATA%/necraul/lain-upload.json`
+- Basic structure
+  - `default_host`: host used when `--host` flag is omitted (default: `"catbox"`).
+  - `hosts`: per-host configuration (`auth`, `expire_after`, `long_filenames`, etc.), keyed by host name.
+
+```json
+{
+  "default_host": "catbox",
+  "hosts": {
+    "catbox": {
+      "auth": null
+    },
+    "litterbox": {
+      "expire_after": "72h",
+      "long_filenames": false
+    },
+    "gofile": {
+      "auth": null
+    }
+  }
+}
+```
+
+```sh
+# Create a default configuration file at the default path
+lain-upload --init-config
+
+# Create a default configuration file at a custom path
+lain-upload --init-config config.json
+
+# Show the effective configuration (defaults merged with the default config file)
+lain-upload --show-config
+
+# Create a default configuration file at the default path and print it
+lain-upload --init-config --show-config
+
+# Create a default configuration file at a custom path and print it
+lain-upload --init-config /path/to/config.json --show-config
+
+# Show the effective configuration (defaults merged with the custom config file)
+lain-upload --config config.json --show-config
+
+# Upload using the config file's default_host (no --host needed)
+lain-upload kuroneko.png
+
+# Override the config file's default_host
+lain-upload --host uguu shironeko.png
+
+# Use a custom configuration file
+lain-upload --config /path/to/config.json kamineko.png
+
+# Ignore the configuration file and use only CLI flags
+lain-upload --no-config kuroneko.png
+
+# Override config's host and expiration (CLI flag overrides config)
+lain-upload --host litterbox --expire-after 24h kuroneko.png
+```
+
 ## Dependencies
 
 - [requests](https://github.com/psf/requests): send the API request for uploading.
