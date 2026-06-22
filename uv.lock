@@ -206,7 +206,7 @@ wheels = [
 
 [[package]]
 name = "lain-upload"
-version = "1.22"
+version = "1.23"
 source = { editable = "." }
 dependencies = [
     { name = "requests" },
