@@ -52,6 +52,7 @@ clipboard = ["pyperclip>=1.11.0"]
 Homepage = "https://github.com/NecRaul/lain-upload"
 Documentation = "https://github.com/NecRaul/lain-upload#readme"
 Repository = "https://github.com/NecRaul/lain-upload.git"
+Download = "https://github.com/NecRaul/lain-upload/releases"
 Issues = "https://github.com/NecRaul/lain-upload/issues"
 
 [project.scripts]
