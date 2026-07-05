@@ -21,6 +21,7 @@ def main():
         "fileditch": {"class": "FileDitch", "options": {}},
         "tempditch": {"class": "TempDitch", "options": {}},
         "0x0": {"class": "Null", "options": {"expire_after", "long_filenames"}},
+        "x0": {"class": "X0", "options": {"long_filenames"}},
         "gofile": {"class": "Gofile", "options": {"auth"}},
         "pixeldrain": {"class": "Pixeldrain", "options": {"auth"}},
         "buzzheavier": {"class": "Buzzheavier", "options": {}},

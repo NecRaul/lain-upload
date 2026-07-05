@@ -22,6 +22,7 @@ DEFAULT_CONFIG = {
         "fileditch": {},
         "tempditch": {},
         "0x0": {"expire_after": None, "long_filenames": False},
+        "x0": {},
         "gofile": {"auth": None},
         "pixeldrain": {"auth": None},
         "buzzheavier": {},
