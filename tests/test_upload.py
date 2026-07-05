@@ -24,6 +24,7 @@ from lain_upload.uploader import (
     ShareyUploader,
     TempDitchUploader,
     UguuUploader,
+    X0Uploader,
 )
 
 
@@ -159,6 +160,10 @@ class UploadIntegrationTests(unittest.TestCase):
             .strip()
         )
         self._assert_uploaded_url(url, ("https://0x0.st/",))
+
+    def test_x0_upload(self):
+        url = X0Uploader(self.file_path, long_filenames=True).upload().strip()
+        self._assert_uploaded_url(url, ("https://x0.at/",))
 
     def test_gofile_upload(self):
         try:
