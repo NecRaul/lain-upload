@@ -6,7 +6,7 @@ A simple CLI file uploader for multiple file-hosting services, with optional cli
 
 ### Via PyPI (Recommended)
 
-You have the option to choose between the standard version (lain-upload) or the desktop version (lain-upload[clipboard]), which adds clipboard support for auto-copying links.
+You have the option to choose between the standard version (`lain-upload`) or the desktop version (`lain-upload[clipboard]`), which adds clipboard support for auto-copying links.
 
 > [!NOTE]
 > For brevity, the examples below use the desktop version.
@@ -25,7 +25,7 @@ pipx install "lain-upload[clipboard]"
 
 #### With uv (Best)
 
-The most efficient way to install or run the uploader.
+The most efficient way to install or run `lain-upload`.
 
 ```sh
 # Permanent isolated installation
@@ -92,24 +92,24 @@ lain-upload -h
 lain-upload -v
 ```
 
-## Supported Hosts
+### Options
 
-- [catbox](https://catbox.moe/) - Support for user authentication with userhashes.
-- [litterbox](https://litterbox.catbox.moe/) - Support for custom expiration time and longer upload filenames.
-- [pomf](https://pomf.lain.la/) - No extra options (_deprecated_).
-- [uguu](https://uguu.se/) - No extra options.
-- [fileditch](https://new.fileditch.com/) - No extra options.
-- [tempditch](https://temp.fileditch.com/) - No extra options.
-- [0x0](https://0x0.st/) - Support for custom expiration time and longer upload filenames.
-- [gofile](https://gofile.io/) - Support for user authentication with bearer API tokens.
-- [pixeldrain](https://pixeldrain.com/) - Support for user authentication with API keys (**Required**).
-- [buzzheavier](https://buzzheavier.com/) - No extra options.
-- [mixdrop](https://mixdrop.ag/) - Support for user authentication with mail and API keys (**Required**).
-- [sharey](https://sharey.org/) - Support for custom expiration time.
+```sh
+    --host            HOST                  File hosting service to upload to (default: catbox)
+    --auth            AUTH                  Authentication credentials for the host (format varies per host)
+    --expire-after    DURATION              How long before the file expires when supported (e.g. 1h, 24h, 72h)
+    --long-filenames  -                     Enable longer generated filenames when supported by the host
+    --config          PATH                  Path to a custom configuration file
+    --init-config     [PATH]                Create a default configuration file at the default or given path
+    --show-config     -                     Print the effective configuration after merging defaults and config file
+    --no-config       -                     Ignore the configuration file and use only CLI flags
+-h, --help            -                     Show help and exit
+-v, --version         -                     Show version and exit
+```
 
-## Configuration
+### Configuration
 
-lain-upload supports a JSON configuration file to set a default host and per-host options. You can create a default config, inspect the effective configuration, and override or ignore the config file at runtime.
+`lain-upload` supports a JSON configuration file to set a default host and per-host options. You can create a default config, inspect the effective configuration, and override or ignore the config file at runtime.
 
 - Default path
   - Linux/BSD: `$XDG_CONFIG_HOME/necraul/lain-upload.json` or `~/.config/necraul/lain-upload.json`
@@ -172,6 +172,22 @@ lain-upload --no-config kuroneko.png
 lain-upload --host litterbox --expire-after 24h kuroneko.png
 ```
 
+## Supported Hosts
+
+- [catbox](https://catbox.moe/) - Support for user authentication with userhashes.
+- [litterbox](https://litterbox.catbox.moe/) - Support for custom expiration time and longer upload filenames.
+- [pomf](https://pomf.lain.la/) - No extra options (_deprecated_).
+- [uguu](https://uguu.se/) - No extra options.
+- [fileditch](https://new.fileditch.com/) - No extra options.
+- [tempditch](https://temp.fileditch.com/) - No extra options.
+- [0x0](https://0x0.st/) - Support for custom expiration time and longer upload filenames.
+- [x0](https://x0.at/) - Support for longer upload filenames.
+- [gofile](https://gofile.io/) - Support for user authentication with bearer API tokens.
+- [pixeldrain](https://pixeldrain.com/) - Support for user authentication with API keys (**Required**).
+- [buzzheavier](https://buzzheavier.com/) - No extra options.
+- [mixdrop](https://mixdrop.ag/) - Support for user authentication with mail and API keys (**Required**).
+- [sharey](https://sharey.org/) - Support for custom expiration time.
+
 ## Dependencies
 
 - [requests](https://github.com/psf/requests): send the API request for uploading.
@@ -195,11 +211,11 @@ curl -F "file=@kuroneko.png" https://example-upload-service.tld/upload-endpoint
 
 ### The lain-upload way
 
-- Batch Processing: Upload multiple files in a single command execution, saving time over individual manual requests.
-- Validation: Checks file constraints before uploading (service-specific rules are enforced per host).
-- API Request: Sends multipart `POST` requests via `requests` and `requests-toolbelt`, with streaming support for large files.
-- Normalization: Parses server responses into clean, shareable URLs.
-- Clipboard (Optional): If `pyperclip` is installed, the result is instantly copied to your clipboard.
+- Batch Processing: Upload multiple files in a single command, iterating through each one and reporting results as they complete rather than waiting for the entire batch to finish.
+- Validation: Enforces service-specific constraints before sending anything. File size limits, allowed extensions, and authentication requirements are all checked upfront to avoid partial uploads or silent failures.
+- API Request: Sends multipart `POST` requests via `requests` and `requests-toolbelt`. The toolbelt layer wraps the file in a streaming encoder so large files are read and sent in chunks rather than loaded fully into memory.
+- Normalization: Parses each service's unique response format and extracts a clean, shareable URL regardless of how the host structures its JSON or plain-text reply.
+- Clipboard (Optional): If `pyperclip` is installed, each resulting URL is copied to the clipboard immediately after upload so it is ready to paste without any extra steps.
 
 ## Special thanks
 
