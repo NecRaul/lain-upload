@@ -137,7 +137,7 @@ class UploadIntegrationTests(unittest.TestCase):
         url = FileDitchUploader(self.file_path).upload().strip()
         self._assert_uploaded_url(
             url,
-            ("https://fileditchfiles.me/",),
+            ("https://fileditchfiles.st/",),
             verify_access=False,
         )
 
@@ -145,7 +145,7 @@ class UploadIntegrationTests(unittest.TestCase):
         url = TempDitchUploader(self.file_path).upload().strip()
         self._assert_uploaded_url(
             url,
-            ("https://fileditchfiles.me/",),
+            ("https://fileditchfiles.st/",),
             verify_access=False,
         )
 

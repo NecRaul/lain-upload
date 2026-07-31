@@ -4,8 +4,8 @@ from lain_upload.uploader.base import BaseUploader
 class TempDitchUploader(BaseUploader):
     def __init__(self, file_path):
         self.file_path = file_path
-        self.file_max_size = 100 * 1000 * 1000 * 1000
-        self.file_max_size_str = "100GB"
+        self.file_max_size = 150 * 1000 * 1000 * 1000
+        self.file_max_size_str = "150GB"
         self.http_method = "POST"
         self.api_endpoint = "https://temp.fileditch.com/upload.php"
 
