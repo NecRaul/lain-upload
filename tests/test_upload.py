@@ -86,7 +86,10 @@ class UploadIntegrationTests(unittest.TestCase):
                     url,
                     timeout=30,
                     headers={
-                        "User-Agent": f"lain-upload-tests/{__version__} (https://github.com/NecRaul/lain-upload)"
+                        "User-Agent": (
+                            f"lain-upload-tests/{__version__} "
+                            "(https://github.com/NecRaul/lain-upload)"
+                        )
                     },
                 )
                 response.raise_for_status()
