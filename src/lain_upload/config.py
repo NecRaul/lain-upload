@@ -23,6 +23,10 @@ DEFAULT_CONFIG = {
         "tempditch": {},
         "0x0": {"expire_after": None, "long_filenames": False},
         "x0": {},
+        "waifuvault": {
+            "expire_after": "12h",
+            "long_filenames": False,
+        },
         "gofile": {"auth": None},
         "pixeldrain": {"auth": None},
         "buzzheavier": {},

@@ -10,6 +10,7 @@ from lain_upload.uploader.pomf import PomfUploader
 from lain_upload.uploader.sharey import ShareyUploader
 from lain_upload.uploader.tempditch import TempDitchUploader
 from lain_upload.uploader.uguu import UguuUploader
+from lain_upload.uploader.waifuvault import WaifuVaultUploader
 from lain_upload.uploader.x0 import X0Uploader
 
 __all__ = [
@@ -25,5 +26,6 @@ __all__ = [
     "ShareyUploader",
     "TempDitchUploader",
     "UguuUploader",
+    "WaifuVaultUploader",
     "X0Uploader",
 ]

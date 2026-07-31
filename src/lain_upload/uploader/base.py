@@ -27,9 +27,10 @@ class BaseUploader:
             ),
         }
         headers.update(self._build_headers())
+        params = self._build_parameters()
         with file_path.open("rb") as file:
             data = self._build_data(file_path.name, file, headers)
-            response = self._upload_impl(data, headers)
+            response = self._upload_impl(data, headers, params)
         return self._extract_url(response)
 
     def _build_data(self, file_name, file, headers):
@@ -45,6 +46,9 @@ class BaseUploader:
     def _build_headers(self):
         return {}
 
+    def _build_parameters(self):
+        return {}
+
     @staticmethod
     def _extract_url(response):
         raise NotImplementedError
@@ -58,12 +62,13 @@ class BaseUploader:
             raise ValueError(f"{file_path.name} bigger than {self.file_max_size_str}")
         return file_path
 
-    def _upload_impl(self, data, headers):
+    def _upload_impl(self, data, headers, params):
         response = requests.request(
             method=self.http_method,
             url=self.api_endpoint,
             data=data,
             headers=headers,
+            params=params,
             timeout=30,
         )
         response.raise_for_status()
