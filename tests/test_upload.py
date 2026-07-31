@@ -24,6 +24,7 @@ from lain_upload.uploader import (
     ShareyUploader,
     TempDitchUploader,
     UguuUploader,
+    WaifuVaultUploader,
     X0Uploader,
 )
 
@@ -168,6 +169,10 @@ class UploadIntegrationTests(unittest.TestCase):
     def test_x0_upload(self):
         url = X0Uploader(self.file_path, long_filenames=True).upload().strip()
         self._assert_uploaded_url(url, ("https://x0.at/",))
+
+    def test_waifuvault_upload(self):
+        url = WaifuVaultUploader(self.file_path, expire_after="24h").upload().strip()
+        self._assert_uploaded_url(url, ("https://waifuvault.moe/f/",))
 
     def test_gofile_upload(self):
         try:
