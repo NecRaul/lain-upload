@@ -29,7 +29,10 @@ def main():
         "sharey": {"class": "Sharey", "options": {"expire_after"}},
     }
     deprecated_hosts = {
-        "pomf": "pomf is no longer supported.\nSee: https://infrablog.lain.la/pomf-announcement",
+        "pomf": "pomf is no longer supported.\n"
+        + "See: https://infrablog.lain.la/pomf-announcement",
+        "tempditch": "tempditch is no longer available. "
+        + "The service has been discontinued.",
     }
     parser = argparse.ArgumentParser(
         description="Upload file to various file hosters",

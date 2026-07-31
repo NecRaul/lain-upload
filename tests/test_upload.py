@@ -141,12 +141,13 @@ class UploadIntegrationTests(unittest.TestCase):
             verify_access=False,
         )
 
-    def test_tempditch_upload(self):
-        url = TempDitchUploader(self.file_path).upload().strip()
-        self._assert_uploaded_url(
-            url,
-            ("https://fileditchfiles.st/",),
-            verify_access=False,
+    def test_tempditch_response_parsing_only(self):
+        response = _FakeResponse(
+            payload={"url": "https://fileditchfiles.st/f/example.txt"}
+        )
+        self.assertEqual(
+            TempDitchUploader._extract_url(response),
+            "https://fileditchfiles.st/f/example.txt",
         )
 
     @unittest.skip("0x0.st uploads are currently suspended")

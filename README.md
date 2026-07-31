@@ -179,7 +179,7 @@ lain-upload --host litterbox --expire-after 24h kuroneko.png
 - [pomf](https://pomf.lain.la/) - No extra options (_deprecated_).
 - [uguu](https://uguu.se/) - No extra options.
 - [fileditch](https://new.fileditch.com/) - No extra options.
-- [tempditch](https://temp.fileditch.com/) - No extra options.
+- [tempditch](https://temp.fileditch.com/) - No extra options (_deprecated_).
 - [0x0](https://0x0.st/) - Support for custom expiration time and longer upload filenames.
 - [x0](https://x0.at/) - Support for longer upload filenames.
 - [gofile](https://gofile.io/) - Support for user authentication with bearer API tokens.
