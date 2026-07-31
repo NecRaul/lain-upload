@@ -9,8 +9,16 @@ class BuzzheavierUploader(BaseUploader):
         self.http_method = "PUT"
         self.api_endpoint = f"https://w.buzzheavier.com/{file_path.name}"
 
+    def _build_data(self, file_name, file, headers):
+        return file
+
     def _build_fields(self, file_name, file):
         return {"file": (file_name, file)}
+
+    def _build_headers(self):
+        return {
+            "Content-Type": "application/octet-stream",
+        }
 
     @staticmethod
     def _extract_url(response):

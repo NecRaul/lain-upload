@@ -26,18 +26,22 @@ class BaseUploader:
         }
         headers.update(self._build_headers())
         with file_path.open("rb") as file:
-            if self.http_method == "PUT":
-                data = file
-                headers["Content-Type"] = "application/octet-stream"
-            else:
-                fields = self._build_fields(file_path.name, file)
-                data = self._build_monitor(fields)
-                headers["Content-Type"] = data.content_type
+            data = self._build_data(file_path.name, file, headers)
             response = self._upload_impl(data, headers)
         return self._extract_url(response)
 
+    def _build_data(self, file_name, file, headers):
+        encoder = MultipartEncoder(self._build_fields(file_name, file))
+        headers["Content-Type"] = encoder.content_type
+        return MultipartEncoderMonitor(
+            encoder, lambda m: self._progress_callback(m.bytes_read, encoder.len)
+        )
+
     def _build_fields(self, file_name, file):
         raise NotImplementedError
+
+    def _build_headers(self):
+        return {}
 
     @staticmethod
     def _extract_url(response):
@@ -51,16 +55,6 @@ class BaseUploader:
         if file_size > self.file_max_size:
             raise ValueError(f"{file_path.name} bigger than {self.file_max_size_str}")
         return file_path
-
-    def _build_monitor(self, fields):
-        encoder = MultipartEncoder(fields)
-        total_bytes = encoder.len
-        return MultipartEncoderMonitor(
-            encoder, lambda m: self._progress_callback(m.bytes_read, total_bytes)
-        )
-
-    def _build_headers(self):
-        return {}
 
     def _upload_impl(self, data, headers):
         response = requests.request(
