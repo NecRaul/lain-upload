@@ -31,6 +31,7 @@ def main():
         "buzzheavier": {"class": "Buzzheavier", "options": {}},
         "mixdrop": {"class": "Mixdrop", "options": {"auth"}},
         "sharey": {"class": "Sharey", "options": {"expire_after"}},
+        "filester": {"class": "Filester", "options": {"auth"}},
     }
     deprecated_hosts = {
         "pomf": "pomf is no longer supported.\n"

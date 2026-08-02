@@ -1,6 +1,7 @@
 from lain_upload.uploader.buzzheavier import BuzzheavierUploader
 from lain_upload.uploader.catbox import CatboxUploader
 from lain_upload.uploader.fileditch import FileDitchUploader
+from lain_upload.uploader.filester import FilesterUploader
 from lain_upload.uploader.gofile import GofileUploader
 from lain_upload.uploader.litterbox import LitterboxUploader
 from lain_upload.uploader.mixdrop import MixdropUploader
@@ -17,6 +18,7 @@ __all__ = [
     "BuzzheavierUploader",
     "CatboxUploader",
     "FileDitchUploader",
+    "FilesterUploader",
     "GofileUploader",
     "MixdropUploader",
     "LitterboxUploader",

@@ -32,6 +32,7 @@ DEFAULT_CONFIG = {
         "buzzheavier": {},
         "mixdrop": {"auth": None},
         "sharey": {"expire_after": "168h"},
+        "filester": {"auth": None},
     },
 }
 

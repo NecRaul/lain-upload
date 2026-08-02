@@ -188,6 +188,7 @@ lain-upload --host litterbox --expire-after 24h kuroneko.png
 - [buzzheavier](https://buzzheavier.com/) - No extra options.
 - [mixdrop](https://mixdrop.ag/) - Support for user authentication with mail and API keys (**Required**).
 - [sharey](https://sharey.org/) - Support for custom expiration time.
+- [filester](https://filester.me/) - Support for user authentication with bearer API tokens.
 
 ## Dependencies
 
