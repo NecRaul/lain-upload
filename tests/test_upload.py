@@ -15,6 +15,7 @@ from lain_upload.uploader import (
     BuzzheavierUploader,
     CatboxUploader,
     FileDitchUploader,
+    FilesterUploader,
     GofileUploader,
     LitterboxUploader,
     MixdropUploader,
@@ -217,6 +218,13 @@ class UploadIntegrationTests(unittest.TestCase):
         self._assert_uploaded_url(
             url,
             ("https://sharey.org/",),
+        )
+
+    def test_filester_upload(self):
+        url = FilesterUploader(self.file_path).upload().strip()
+        self._assert_uploaded_url(
+            url,
+            ("https://filester.me/d/",),
         )
 
 
