@@ -187,7 +187,7 @@ lain-upload --host litterbox --expire-after 24h kuroneko.png
 - [pixeldrain](https://pixeldrain.com/) - Support for user authentication with API keys (**Required**).
 - [buzzheavier](https://buzzheavier.com/) - No extra options.
 - [mixdrop](https://mixdrop.ag/) - Support for user authentication with mail and API keys (**Required**).
-- [sharey](https://sharey.org/) - Support for custom expiration time.
+- [sharey](https://sharey.org/) - Support for password-protected uploads and custom expiration time.
 - [filester](https://filester.me/) - Support for user authentication with bearer API tokens.
 
 ## Dependencies

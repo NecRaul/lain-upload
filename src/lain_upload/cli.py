@@ -30,7 +30,7 @@ def main():
         "pixeldrain": {"class": "Pixeldrain", "options": {"auth"}},
         "buzzheavier": {"class": "Buzzheavier", "options": {}},
         "mixdrop": {"class": "Mixdrop", "options": {"auth"}},
-        "sharey": {"class": "Sharey", "options": {"expire_after"}},
+        "sharey": {"class": "Sharey", "options": {"auth", "expire_after"}},
         "filester": {"class": "Filester", "options": {"auth"}},
     }
     deprecated_hosts = {

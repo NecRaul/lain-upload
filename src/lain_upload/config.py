@@ -31,7 +31,7 @@ DEFAULT_CONFIG = {
         "pixeldrain": {"auth": None},
         "buzzheavier": {},
         "mixdrop": {"auth": None},
-        "sharey": {"expire_after": "168h"},
+        "sharey": {"auth": None, "expire_after": "168h"},
         "filester": {"auth": None},
     },
 }
