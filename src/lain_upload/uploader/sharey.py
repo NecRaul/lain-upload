@@ -1,5 +1,4 @@
 import sys
-from datetime import datetime, timedelta, timezone
 
 from lain_upload.uploader.base import BaseUploader
 
@@ -14,15 +13,11 @@ class ShareyUploader(BaseUploader):
         self.api_endpoint = "https://sharey.org/api/upload"
 
     def _build_fields(self, file_name, file):
-        return {
-            "files[]": (file_name, file),
-            "expires_at": (
-                datetime.now(timezone.utc)
-                + timedelta(hours=self._normalize_expire_after(self.expire_after))
-            )
-            .isoformat(timespec="milliseconds")
-            .replace("+00:00", "Z"),
-        }
+        data = {"files[]": (file_name, file)}
+        if self.expire_after:
+            data["expiry"] = self._normalize_expire_after(self.expire_after)
+
+        return data
 
     @staticmethod
     def _extract_url(response):
@@ -32,17 +27,15 @@ class ShareyUploader(BaseUploader):
     def _normalize_expire_after(requested_str):
         requested = int(requested_str[:-1])
         supported = sorted({1, 24, 168, 720, 2160})
-        expire_after = supported[0]
-        if requested in supported:
-            expire_after = requested
-        else:
-            expire_after = max(
-                [x for x in supported if x < requested], default=expire_after
-            )
+        expire_after = max(
+            (x for x in supported if x <= requested),
+            default=supported[0],
+        )
+        if expire_after != requested:
             print(
                 f"Expiration after {requested}h not supported, "
                 f"rounding down to {expire_after}h",
                 file=sys.stderr,
             )
 
-        return expire_after
+        return f"{expire_after // 24}d" if expire_after >= 24 else f"{expire_after}h"
