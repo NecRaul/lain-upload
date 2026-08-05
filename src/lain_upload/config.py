@@ -26,12 +26,13 @@ DEFAULT_CONFIG = {
         "waifuvault": {
             "expire_after": "12h",
             "long_filenames": False,
+            "single_view": False,
         },
         "gofile": {"auth": None},
         "pixeldrain": {"auth": None},
         "buzzheavier": {},
         "mixdrop": {"auth": None},
-        "sharey": {"auth": None, "expire_after": "168h"},
+        "sharey": {"auth": None, "expire_after": "168h", "single_view": False},
         "filester": {"auth": None},
     },
 }

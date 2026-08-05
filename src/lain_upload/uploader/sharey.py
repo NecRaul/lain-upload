@@ -4,10 +4,11 @@ from lain_upload.uploader.base import BaseUploader
 
 
 class ShareyUploader(BaseUploader):
-    def __init__(self, file_path, auth="", expire_after="168h"):
+    def __init__(self, file_path, auth="", expire_after="168h", single_view=False):
         self.file_path = file_path
         self.auth = auth
         self.expire_after = expire_after
+        self.single_view = single_view
         self.file_max_size = 100 * 1000 * 1000 * 1000
         self.file_max_size_str = "100GB"
         self.http_method = "POST"
@@ -19,6 +20,8 @@ class ShareyUploader(BaseUploader):
             data["password"] = self.auth
         if self.expire_after:
             data["expiry"] = self._normalize_expire_after(self.expire_after)
+        if self.single_view:
+            data["burn_after_view"] = "true"
 
         return data
 

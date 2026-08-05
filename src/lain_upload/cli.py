@@ -24,13 +24,16 @@ def main():
         "x0": {"class": "X0", "options": {"long_filenames"}},
         "waifuvault": {
             "class": "WaifuVault",
-            "options": {"expire_after", "long_filenames"},
+            "options": {"expire_after", "long_filenames", "single_view"},
         },
         "gofile": {"class": "Gofile", "options": {"auth"}},
         "pixeldrain": {"class": "Pixeldrain", "options": {"auth"}},
         "buzzheavier": {"class": "Buzzheavier", "options": {}},
         "mixdrop": {"class": "Mixdrop", "options": {"auth"}},
-        "sharey": {"class": "Sharey", "options": {"auth", "expire_after"}},
+        "sharey": {
+            "class": "Sharey",
+            "options": {"auth", "expire_after", "single_view"},
+        },
         "filester": {"class": "Filester", "options": {"auth"}},
     }
     deprecated_hosts = {
@@ -88,6 +91,12 @@ def main():
         action="store_true",
         default=argparse.SUPPRESS,
         help="use longer filenames for uploaded files",
+    )
+    parser.add_argument(
+        "--single-view",
+        action="store_true",
+        default=argparse.SUPPRESS,
+        help="allow the upload to be viewed only once",
     )
     parser.add_argument("file_paths", nargs="*", default=[], help="File path(s)")
 

@@ -99,6 +99,7 @@ lain-upload -v
     --auth            AUTH                  Authentication credentials for the host (format varies per host)
     --expire-after    DURATION              How long before the file expires when supported (e.g. 1h, 24h, 72h)
     --long-filenames  -                     Enable longer generated filenames when supported by the host
+    --single-view     -                     Delete upload after it has been viewed once
     --config          PATH                  Path to a custom configuration file
     --init-config     [PATH]                Create a default configuration file at the default or given path
     --show-config     -                     Print the effective configuration after merging defaults and config file
@@ -129,6 +130,16 @@ lain-upload -v
     "litterbox": {
       "expire_after": "72h",
       "long_filenames": false
+    },
+    "waifuvault": {
+      "expire_after": "12h",
+      "long_filenames": false,
+      "single_view": false,
+    },
+    "sharey": {
+      "auth": null,
+      "expire_after": "24h",
+      "single_view": false,
     },
     "gofile": {
       "auth": null
@@ -182,12 +193,12 @@ lain-upload --host litterbox --expire-after 24h kuroneko.png
 - [tempditch](https://temp.fileditch.com/) - No extra options (_deprecated_).
 - [0x0](https://0x0.st/) - Support for custom expiration time and longer upload filenames.
 - [x0](https://x0.at/) - Support for longer upload filenames.
-- [waifuvault](https://waifuvault.moe/) - Support for custom expiration time and hidden upload filenames.
+- [waifuvault](https://waifuvault.moe/) - Support for custom expiration time, hidden upload filenames, and single-view uploads.
 - [gofile](https://gofile.io/) - Support for user authentication with bearer API tokens.
 - [pixeldrain](https://pixeldrain.com/) - Support for user authentication with API keys (**Required**).
 - [buzzheavier](https://buzzheavier.com/) - No extra options.
 - [mixdrop](https://mixdrop.ag/) - Support for user authentication with mail and API keys (**Required**).
-- [sharey](https://sharey.org/) - Support for password-protected uploads and custom expiration time.
+- [sharey](https://sharey.org/) - Support for password-protected uploads, custom expiration time, and single-view uploads.
 - [filester](https://filester.me/) - Support for user authentication with bearer API tokens.
 
 ## Dependencies
