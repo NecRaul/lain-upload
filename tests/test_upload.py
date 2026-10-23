@@ -126,13 +126,9 @@ class UploadIntegrationTests(unittest.TestCase):
             self.skipTest(f"Litterbox connect timeout: {e}")
         self._assert_uploaded_url(url, ("https://litter.catbox.moe/",))
 
-    def test_pomf_response_parsing_only(self):
-        response = _FakeResponse(
-            payload={"files": [{"url": "https://pomf2.lain.la/f/example.txt"}]}
-        )
-        self.assertEqual(
-            PomfUploader._extract_url(response), "https://pomf2.lain.la/f/example.txt"
-        )
+    def test_pomf_upload(self):
+        url = PomfUploader(self.file_path).upload().strip()
+        self._assert_uploaded_url(url, ("https://pomf2.lain.la/f/",))
 
     def test_uguu_upload(self):
         url = UguuUploader(self.file_path).upload().strip()

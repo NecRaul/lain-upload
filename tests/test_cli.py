@@ -205,14 +205,14 @@ class CliTests(unittest.TestCase):
         stderr = io.StringIO()
 
         with (
-            patch("sys.argv", ["lain-upload", "--host", "pomf", "dummy.txt"]),
+            patch("sys.argv", ["lain-upload", "--host", "tempditch", "dummy.txt"]),
             patch("sys.stderr", stderr),
         ):
             with self.assertRaises(SystemExit) as ctx:
                 cli.main()
 
         self.assertEqual(ctx.exception.code, 2)
-        self.assertIn("pomf is no longer supported", stderr.getvalue())
+        self.assertIn("tempditch is no longer available", stderr.getvalue())
 
     def test_continues_processing_files_after_error(self):
         with tempfile.NamedTemporaryFile(suffix=".txt") as tmp_ok:
