@@ -193,7 +193,7 @@ lain-upload --host litterbox --expire-after 24h kuroneko.png
 
 - [catbox](https://catbox.moe/) - Support for user authentication with userhashes.
 - [litterbox](https://litterbox.catbox.moe/) - Support for custom expiration time and longer upload filenames.
-- [pomf](https://pomf.lain.la/) - No extra options (_deprecated_).
+- [pomf](https://pomf.lain.la/) - No extra options.
 - [uguu](https://uguu.se/) - No extra options.
 - [fileditch](https://new.fileditch.com/) - No extra options.
 - [tempditch](https://temp.fileditch.com/) - No extra options (_deprecated_).
