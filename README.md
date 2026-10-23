@@ -84,6 +84,12 @@ lain-upload --host litterbox --expire-after 24h kuroneko.png
 # Enable longer generated filenames when supported
 lain-upload --host 0x0 --long-filenames -- kuroneko.png shironeko.png
 
+# Upload a file that is automatically deleted after the first view
+lain-upload --host waifuvault --single-view yamineko.png
+
+# Upload a file protected by a password required for access
+lain-upload --host sharey --auth beloved kamineko.png
+
 # Upload to every available non-deprecated host
 lain-upload --host all kamineko.png
 
