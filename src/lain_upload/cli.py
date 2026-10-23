@@ -37,8 +37,6 @@ def main():
         "filester": {"class": "Filester", "options": {"auth"}},
     }
     deprecated_hosts = {
-        "pomf": "pomf is no longer supported.\n"
-        + "See: https://infrablog.lain.la/pomf-announcement",
         "tempditch": "tempditch is no longer available. "
         + "The service has been discontinued.",
     }
