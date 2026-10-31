@@ -19,6 +19,7 @@ DEFAULT_CONFIG = {
         },
         "pomf": {},
         "uguu": {},
+        "pone": {},
         "fileditch": {},
         "tempditch": {},
         "0x0": {"expire_after": None, "long_filenames": False},

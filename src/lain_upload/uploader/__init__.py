@@ -8,6 +8,7 @@ from lain_upload.uploader.mixdrop import MixdropUploader
 from lain_upload.uploader.null import NullUploader
 from lain_upload.uploader.pixeldrain import PixeldrainUploader
 from lain_upload.uploader.pomf import PomfUploader
+from lain_upload.uploader.pone import PoneUploader
 from lain_upload.uploader.sharey import ShareyUploader
 from lain_upload.uploader.tempditch import TempDitchUploader
 from lain_upload.uploader.uguu import UguuUploader
@@ -25,6 +26,7 @@ __all__ = [
     "NullUploader",
     "PixeldrainUploader",
     "PomfUploader",
+    "PoneUploader",
     "ShareyUploader",
     "TempDitchUploader",
     "UguuUploader",
