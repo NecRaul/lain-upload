@@ -22,6 +22,7 @@ from lain_upload.uploader import (
     NullUploader,
     PixeldrainUploader,
     PomfUploader,
+    PoneUploader,
     ShareyUploader,
     TempDitchUploader,
     UguuUploader,
@@ -133,6 +134,10 @@ class UploadIntegrationTests(unittest.TestCase):
     def test_uguu_upload(self):
         url = UguuUploader(self.file_path).upload().strip()
         self._assert_uploaded_url(url, expected_domain_suffixes=("uguu.se",))
+
+    def test_pone_upload(self):
+        url = PoneUploader(self.file_path).upload().strip()
+        self._assert_uploaded_url(url, expected_domain_suffixes=("pone.rs",))
 
     @unittest.skipIf(
         os.getenv("GITHUB_ACTIONS") == "true",
