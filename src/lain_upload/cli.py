@@ -18,6 +18,7 @@ def main():
         },
         "pomf": {"class": "Pomf", "options": {}},
         "uguu": {"class": "Uguu", "options": {}},
+        "pone": {"class": "Pone", "options": {}},
         "fileditch": {"class": "FileDitch", "options": {}},
         "tempditch": {"class": "TempDitch", "options": {}},
         "0x0": {"class": "Null", "options": {"expire_after", "long_filenames"}},
